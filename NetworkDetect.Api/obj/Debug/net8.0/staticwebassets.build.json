@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Z+ky/l9yxKJE/tdvBRbkJ7qmQEo78n+xp9bsLVSYon8=",
+  "Source": "NetworkDetect.Api",
+  "BasePath": "_content/NetworkDetect.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

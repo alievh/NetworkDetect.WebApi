@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NetworkDetect.Core\NetworkDetect.Core.csproj" />
+    <ProjectReference Include="..\NetworkDetect.Data\NetworkDetect.Data.csproj" />
+  </ItemGroup>
+
 </Project>
