@@ -2,7 +2,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NetworkDetect.Business.Implementations;
+using NetworkDetect.Business.Interfaces;
+using NetworkDetect.Business.Profiles;
+using NetworkDetect.Business.Token.Implementations;
+using NetworkDetect.Core;
 using NetworkDetect.Core.Entities;
+using NetworkDetect.Data;
 using NetworkDetect.Data.DAL;
 using System.Text;
 
@@ -61,6 +67,15 @@ builder.Services.Configure<IdentityOptions>(options =>
 	options.User.RequireUniqueEmail = true;
 	options.SignIn.RequireConfirmedEmail = true;
 });
+
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddMapperService();
+
+builder.Services.AddScoped<IUnitOfWorkService, UnitOfWorkService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

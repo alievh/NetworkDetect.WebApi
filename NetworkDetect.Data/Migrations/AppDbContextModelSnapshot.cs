@@ -178,9 +178,6 @@ namespace NetworkDetect.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -238,8 +235,6 @@ namespace NetworkDetect.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CartId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -259,6 +254,10 @@ namespace NetworkDetect.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -269,6 +268,9 @@ namespace NetworkDetect.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
 
                     b.ToTable("Carts");
                 });
@@ -285,12 +287,7 @@ namespace NetworkDetect.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Images");
                 });
@@ -306,6 +303,9 @@ namespace NetworkDetect.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -320,6 +320,9 @@ namespace NetworkDetect.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique();
 
                     b.ToTable("Products");
                 });
@@ -390,24 +393,38 @@ namespace NetworkDetect.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NetworkDetect.Core.Entities.AppUser", b =>
+            modelBuilder.Entity("NetworkDetect.Core.Entities.Cart", b =>
                 {
-                    b.HasOne("NetworkDetect.Core.Entities.Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("CartId")
+                    b.HasOne("NetworkDetect.Core.Entities.AppUser", "AppUser")
+                        .WithOne("Cart")
+                        .HasForeignKey("NetworkDetect.Core.Entities.Cart", "AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Cart");
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("NetworkDetect.Core.Entities.Product", b =>
+                {
+                    b.HasOne("NetworkDetect.Core.Entities.Image", "Image")
+                        .WithOne("Product")
+                        .HasForeignKey("NetworkDetect.Core.Entities.Product", "ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("NetworkDetect.Core.Entities.AppUser", b =>
+                {
+                    b.Navigation("Cart")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("NetworkDetect.Core.Entities.Image", b =>
                 {
-                    b.HasOne("NetworkDetect.Core.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Product");
+                    b.Navigation("Product")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

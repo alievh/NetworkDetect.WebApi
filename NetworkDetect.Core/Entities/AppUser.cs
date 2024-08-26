@@ -12,6 +12,5 @@ public class AppUser : IdentityUser, IEntity
 	public string Lastname { get; set; }
 	public DateTime RegisterDate { get; set; }
 
-	public int CartId { get; set; }
 	public Cart Cart { get; set; }
 }
