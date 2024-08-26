@@ -152,3 +152,5 @@ D:\Projects\MUSTAnalytics\NetworkDetect.WebApi\NetworkDetect.Api\bin\Debug\net8.
 D:\Projects\MUSTAnalytics\NetworkDetect.WebApi\NetworkDetect.Api\bin\Debug\net8.0\NetworkDetect.Business.pdb
 D:\Projects\MUSTAnalytics\NetworkDetect.WebApi\NetworkDetect.Api\bin\Debug\net8.0\NetworkDetect.Core.pdb
 D:\Projects\MUSTAnalytics\NetworkDetect.WebApi\NetworkDetect.Api\bin\Debug\net8.0\NetworkDetect.Data.pdb
+D:\Projects\MUSTAnalytics\NetworkDetect.WebApi\NetworkDetect.Api\bin\Debug\net8.0\AutoMapper.dll
+D:\Projects\MUSTAnalytics\NetworkDetect.WebApi\NetworkDetect.Api\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
