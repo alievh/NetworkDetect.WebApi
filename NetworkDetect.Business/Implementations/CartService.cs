@@ -25,7 +25,7 @@ public class CartService : ICartService
 	public async Task<CartGetDto> GetAsync()
 	{
 		var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-		Cart cart = await _unitOfWork.CartRepository.GetAsync(n => n.AppUserId == userId && !n.IsDeleted, "Products");
+		Cart cart = await _unitOfWork.CartRepository.GetAsync(n => n.AppUser.Id == userId && !n.IsDeleted, "Products.Image", "AppUser");
 		if (cart is null) throw new NotFoundException("Cart not found!");
 		CartGetDto cartGetDto = _mapper.Map<CartGetDto>(cart);
 		return cartGetDto;
@@ -48,6 +48,15 @@ public class CartService : ICartService
 		Cart cart = await _unitOfWork.CartRepository.GetAsync(n => n.AppUserId == userId && !n.IsDeleted, "Products") ?? throw new NotFoundException("Cart not found!");
 
 		cart.Products.Remove(product);
+		await _unitOfWork.CartRepository.UpdateAsync(cart);
+	}
+
+	public async Task UpdateCartAsync(ICollection<Product> products)
+	{
+		var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+		Cart cart = await _unitOfWork.CartRepository.GetAsync(n => n.AppUserId == userId && !n.IsDeleted, "Products") ?? throw new NotFoundException("Cart not found!");
+
+		cart.Products = products;
 		await _unitOfWork.CartRepository.UpdateAsync(cart);
 	}
 }

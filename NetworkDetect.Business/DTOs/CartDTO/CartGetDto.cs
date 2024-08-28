@@ -1,6 +1,8 @@
-﻿namespace NetworkDetect.Business.DTOs.CartDTO;
+﻿using NetworkDetect.Core.Entities;
+
+namespace NetworkDetect.Business.DTOs.CartDTO;
 
 public class CartGetDto
 {
-	public ICollection<CartProductsDto> CartProductsDtos { get; set; }
+	public ICollection<Product> Products { get; set; }
 }

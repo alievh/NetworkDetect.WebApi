@@ -33,11 +33,18 @@ public class AuthenticateController : ControllerBase
 			return StatusCode(StatusCodes.Status403Forbidden, new { status = "error", message = "Email is already exisit" });
 		}
 
+		string userName = register.Email.Substring(0, register.Email.IndexOf("@"));
+
 		AppUser user = new()
 		{
 			Firstname = register.Firstname,
 			Lastname = register.Lastname,
 			Email = register.Email,
+			UserName = userName,
+			Cart = new Cart()
+			{
+				CreateDate = DateTime.UtcNow.AddHours(4),
+			},
 			RegisterDate = DateTime.UtcNow.AddHours(4)
 		};
 
@@ -53,13 +60,13 @@ public class AuthenticateController : ControllerBase
 
 		await _userManager.AddToRoleAsync(user, Roles.Member.ToString());
 
-		return Ok(new { statsu = "Success", message = "Confirmation email sent" });
+		return Ok(new { status = "Success", message = "Confirmation email sent" });
 	}
 
 	[HttpPost("login")]
 	public async Task<ActionResult> Login([FromBody] Login login)
 	{
-		AppUser user = await _userManager.FindByNameAsync(login.Email);
+		AppUser user = await _userManager.FindByEmailAsync(login.Email);
 
 		if (user == null) return NotFound();
 
@@ -81,18 +88,18 @@ public class AuthenticateController : ControllerBase
 		});
 	}
 
-	[HttpPost("createroles")]
-	public async Task CreateRoles()
-	{
-		foreach (var item in Enum.GetValues(typeof(Roles)))
-		{
-			if (!(await _roleManager.RoleExistsAsync(item.ToString())))
-			{
-				await _roleManager.CreateAsync(new IdentityRole
-				{
-					Name = item.ToString()
-				});
-			}
-		}
-	}
+	//[HttpPost("createroles")]
+	//public async Task CreateRoles()
+	//{
+	//	foreach (var item in Enum.GetValues(typeof(Roles)))
+	//	{
+	//		if (!(await _roleManager.RoleExistsAsync(item.ToString())))
+	//		{
+	//			await _roleManager.CreateAsync(new IdentityRole
+	//			{
+	//				Name = item.ToString()
+	//			});
+	//		}
+	//	}
+	//}
 }

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkDetect.Api", "NetworkDetect.Api\NetworkDetect.Api.csproj", "{237470C4-B8C4-4678-84DF-9CD634B528F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkDetect.Api", "NetworkDetect.Api\NetworkDetect.Api.csproj", "{237470C4-B8C4-4678-84DF-9CD634B528F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkDetect.Core", "NetworkDetect.Core\NetworkDetect.Core.csproj", "{C6FF0A27-8795-45F1-93E8-39CBE5C68A7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkDetect.Core", "NetworkDetect.Core\NetworkDetect.Core.csproj", "{C6FF0A27-8795-45F1-93E8-39CBE5C68A7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkDetect.Business", "NetworkDetect.Business\NetworkDetect.Business.csproj", "{A7994947-4D68-482C-980C-E011FEB1B0E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkDetect.Business", "NetworkDetect.Business\NetworkDetect.Business.csproj", "{A7994947-4D68-482C-980C-E011FEB1B0E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkDetect.Data", "NetworkDetect.Data\NetworkDetect.Data.csproj", "{AB7548AA-3C7A-4D7B-B950-8743F69024F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkDetect.Data", "NetworkDetect.Data\NetworkDetect.Data.csproj", "{AB7548AA-3C7A-4D7B-B950-8743F69024F1}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{513200A4-4F3B-4BE8-8B31-EAF9DE3C7E31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{AB7548AA-3C7A-4D7B-B950-8743F69024F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB7548AA-3C7A-4D7B-B950-8743F69024F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB7548AA-3C7A-4D7B-B950-8743F69024F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{513200A4-4F3B-4BE8-8B31-EAF9DE3C7E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{513200A4-4F3B-4BE8-8B31-EAF9DE3C7E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{513200A4-4F3B-4BE8-8B31-EAF9DE3C7E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{513200A4-4F3B-4BE8-8B31-EAF9DE3C7E31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

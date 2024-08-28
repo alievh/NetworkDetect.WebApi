@@ -11,8 +11,7 @@ public class Mapper : Profile
 	public Mapper()
 	{
 		CreateMap<AppUser, UserGetDto>();
-		CreateMap<Cart, CartGetDto>()
-			.ForMember(c => c.CartProductsDtos, c => c.MapFrom(src => src.Products));
+		CreateMap<Cart, CartGetDto>();
 		CreateMap<Product, ProductGetDto>()
 			.ForMember(c => c.ImageUrl, c => c.MapFrom(src => src.Image.ImageUrl));
 		CreateMap<ProductCreateDto, Product>();

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using NetworkDetect.Business.Implementations;
 using NetworkDetect.Business.Interfaces;
@@ -27,7 +28,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowOrigins",
-		builder => builder.WithOrigins("http://localhost:3000").WithMethods("PUT", "DELETE", "GET"));
+		builder => builder.WithOrigins("http://localhost:3000", "http://localhost:3001").WithMethods("PUT", "DELETE", "GET"));
 });
 
 builder.Services.AddAuthentication(options =>
@@ -44,6 +45,7 @@ builder.Services.AddAuthentication(options =>
 		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:securityKey").Value)),
 	};
 });
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -86,7 +88,25 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+app.UseStaticFiles(new StaticFileOptions()
+{
+	FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "images")),
+	RequestPath = "/img"
+});
+
+app.UseRouting();
+
+app.UseCors(x => x
+	.WithOrigins("http://localhost:3000", "http://localhost:3001")
+	.AllowAnyMethod()
+	.AllowAnyHeader()
+	.AllowCredentials()
+	.SetIsOriginAllowed(origin => true)
+);
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

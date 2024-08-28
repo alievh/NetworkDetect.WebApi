@@ -1,0 +1,33 @@
+networks:
+  networkdetectapp:
+
+services:
+  networkdetectdb:
+    container_name: network-detect-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@55w0rd!
+    networks:
+      - networkdetectapp
+  networkdetect.api:
+    container_name: network-detect-app
+    image: ${DOCKER_REGISTRY-}networkdetectapi
+    build:
+      context: .
+      dockerfile: NetworkDetect.Api/Dockerfile
+    ports:
+      - 8001:8080
+    depends_on:
+      - networkdetectdb
+    environment:
+      - DB_HOST=networkdetectdb
+      - DB_NAME=NetworkDetectApp
+      - DB_SA_PASSWORD=P@55w0rd!
+    networks:
+      - networkdetectapp
+    volumes:
+      - D:/Projects/MUSTAnalytics/NetworkDetect.WebApi/NetworkDetect.Api/Images:/app/images
+  

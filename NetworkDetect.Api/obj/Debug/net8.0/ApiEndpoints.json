@@ -1,22 +1,6 @@
 [
   {
     "ContainingType": "NetworkDetect.Api.Controllers.AuthenticateController",
-    "Method": "CreateRoles",
-    "RelativePath": "api/Authenticate/createroles",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "NetworkDetect.Api.Controllers.AuthenticateController",
     "Method": "Login",
     "RelativePath": "api/Authenticate/login",
     "HttpMethod": "POST",
@@ -54,13 +38,7 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": [
       {
         "Type": "NetworkDetect.Business.DTOs.CartDTO.CartGetDto",
@@ -100,6 +78,22 @@
       {
         "Name": "productId",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NetworkDetect.Api.Controllers.CartController",
+    "Method": "UpdateCartAsync",
+    "RelativePath": "api/Cart/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "products",
+        "Type": "System.Collections.Generic.ICollection\u00601[[NetworkDetect.Core.Entities.Product, NetworkDetect.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],
@@ -154,7 +148,7 @@
   {
     "ContainingType": "NetworkDetect.Api.Controllers.ProductController",
     "Method": "ProductCreateAsync",
-    "RelativePath": "api/Product/ProductCreate",
+    "RelativePath": "api/Product/Create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

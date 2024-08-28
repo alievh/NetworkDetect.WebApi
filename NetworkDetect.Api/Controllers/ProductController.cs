@@ -42,7 +42,7 @@ public class ProductController : ControllerBase
 		}
 	}
 
-	[HttpPost("ProductCreate")]
+	[HttpPost("Create")]
 	public async Task<ActionResult> ProductCreateAsync([FromForm] ProductCreateDto productCreateDto)
 	{
 		try

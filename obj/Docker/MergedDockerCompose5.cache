@@ -1,0 +1,60 @@
+name: dockercompose12407305393900429413
+services:
+  networkdetect.api:
+    build:
+      context: D:\Projects\MUSTAnalytics\NetworkDetect.WebApi
+      dockerfile: NetworkDetect.Api/Dockerfile
+    container_name: network-detect-app
+    depends_on:
+      networkdetectdb:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+      DB_HOST: networkdetectdb
+      DB_NAME: NetworkDetectApp
+      DB_SA_PASSWORD: P@55w0rd!
+    image: networkdetectapi
+    networks:
+      networkdetectapp: null
+    ports:
+    - mode: ingress
+      target: 8080
+      protocol: tcp
+    - mode: ingress
+      target: 8080
+      published: "8001"
+      protocol: tcp
+    - mode: ingress
+      target: 8081
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\hsyna\AppData\Roaming/Microsoft/UserSecrets
+      target: /home/app/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\hsyna\AppData\Roaming/ASP.NET/Https
+      target: /home/app/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  networkdetectdb:
+    container_name: network-detect-db
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: P@55w0rd!
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      networkdetectapp: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "8002"
+      protocol: tcp
+networks:
+  networkdetectapp:
+    name: dockercompose12407305393900429413_networkdetectapp

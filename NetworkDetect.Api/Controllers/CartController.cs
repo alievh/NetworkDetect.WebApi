@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NetworkDetect.Business.DTOs.CartDTO;
 using NetworkDetect.Business.DTOs.StatusCode;
 using NetworkDetect.Business.Interfaces;
+using NetworkDetect.Core.Entities;
 
 namespace NetworkDetect.Api.Controllers;
 
+[Authorize(AuthenticationSchemes = "Bearer")]
 [Route("api/[controller]")]
 [ApiController]
 public class CartController : ControllerBase
@@ -17,7 +20,7 @@ public class CartController : ControllerBase
 	}
 
 	[HttpGet()]
-	public async Task<ActionResult<CartGetDto>> CartGetAsync(int id)
+	public async Task<ActionResult<CartGetDto>> CartGetAsync()
 	{
 		try
 		{
@@ -50,6 +53,20 @@ public class CartController : ControllerBase
 		{
 			await _unitOfWorkService.CartService.RemoveFromCartAsync(productId);
 			return StatusCode(StatusCodes.Status200OK, new Response { Status = "Success", Message = "Product removed succesfully!" });
+		}
+		catch (Exception ex)
+		{
+			return StatusCode(StatusCodes.Status502BadGateway, new Response { Status = "Error", Message = ex.ToString() });
+		}
+	}
+
+	[HttpPut("Update")]
+	public async Task<ActionResult> UpdateCartAsync([FromBody] Product[] products)
+	{
+		try
+		{
+			await _unitOfWorkService.CartService.UpdateCartAsync(products);
+			return StatusCode(StatusCodes.Status200OK, new Response { Status = "Success", Message = "Cart updated succesfully!" });
 		}
 		catch (Exception ex)
 		{
